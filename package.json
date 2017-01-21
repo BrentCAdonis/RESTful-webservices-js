@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/BrentCAdonis/restful-webservices-js#readme",
   "dependencies": {
+    "body-parser": "^1.16.0",
     "express": "^4.14.0",
     "gulp": "^3.9.1",
     "gulp-nodemon": "^2.2.1",

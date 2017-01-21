@@ -6,11 +6,21 @@ var clientModel = new Schema({
     reportingname: String,
     tradingas: String,
     abbreviatedname: String,
+    persondetails: [{
+        firstname: String,
+        middlename: String,
+        lastname: String,
+        salutation: String
+    }],
     entitytype: {
         type: String,
         enum: ['Company', 'Trust', 'Partnership', 'Individual', 'Society', 'Incorporated Society', 'Charitable Trust']
     },
     acn: String,
+    country: {
+        type: String,
+        enum: ['Australia', 'New Zealand', 'South Africa', 'United Kingdon', 'United States']
+    },
     countrycode: Number,
     tax: {
         type: Boolean,
@@ -19,7 +29,12 @@ var clientModel = new Schema({
     taxnumber: String,
     businessnumber: String,
     ledgertext: String,
-    ledgervalue: Number
+    ledgervalue: Number,
+    datecreated: Date,
+    datemodified: {
+        type: Date,
+        default: Date.now
+    }
 });
 
 module.exports = mongoose.model('Client', clientModel);
