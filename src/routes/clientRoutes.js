@@ -2,30 +2,11 @@ var express = require('express');
 
 var router = function(Client) {
     var clientRouter = express.Router();
+    var clientController = require('../controllers/clientController')(Client);
 
     clientRouter.route('/')
-        .post(function(req, res) {
-            var client = new Client(req.body);
-            console.log(client);
-            client.save();
-            res.status(201).send(client);
-        })
-
-        .get(function(req, res) {
-            var query = [];
-    
-            if(req.query.name) {
-                query.name = req.query.name;
-            }
-
-            Client.find(query, function(err, clients) {
-                if (err) {
-                    res.status(500).send(err);
-                } else {
-                    res.json(clients);
-                }
-            });
-        });
+        .post(clientController.post)
+        .get(clientController.get);
 
     clientRouter.use('/:clientId', function(req, res, next) {
         Client.findById(req.params.clientId, function(err, client) {

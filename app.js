@@ -3,7 +3,13 @@ var express = require('express'),
     bodyParser = require('body-parser');
 
 //MongoDb database configuration and connection to the database
-var db = mongoose.connect('mongodb://localhost:27017/examineDb');
+//Require database to be used between testing and production
+var db;
+if (process.env.ENV == 'Test') {
+    db = mongoose.connect('mongodb://localhost:27017/examineDb_test');
+} else {
+    db  = mongoose.connect('mongodb://localhost:27017/examineDb');
+}
 
 //All the required Mongoose schemas and models for the application
 var Client = require('./src/models/clientModel');
@@ -31,3 +37,5 @@ app.get('/', function(req, res) {
 app.listen(port, function() {
     console.log('This application is running on port ' + port);
 });
+
+module.exports = app;
